@@ -1,9 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Repara.Model.Enum;
 
 namespace Repara.Model;
 
 // TODO: Adicionar os dataanotations
 // Classe abstreai a solicitação de serviços a empresa
+[Table("Solicitacoes")]
 public class Solicitacao: TableBase
 {
     
@@ -14,7 +16,7 @@ public class Solicitacao: TableBase
     public Cliente Cliente { get; set; } 
     
     // Prioridade da solicitação
-    public SolicitacaoPrioridade SolicitacaoPrioridade { get; set; } 
+    public SolicitacaoPrioridade Prioridade { get; set; } 
     
     // Id do funcionário que recebeu a solicitação
     public int FuncionaioId { get; set; }

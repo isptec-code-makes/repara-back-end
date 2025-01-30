@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Repara.Model;
 
 // TODO: Adicionar os dataanotations
 // Classe abstrai um serviço de motagens de peças em um equipamento
+[Table("Montagens")]
 public class Montagem: Servico
 {
     // Coleção de peças a serem motada

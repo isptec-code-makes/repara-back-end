@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Repara.Model;
 
 // Classe reprenseta um funcinario no sistema
 //  TODO: Adicionar os dataanotations
+[Table("Funcionarios")]
 public class Funcionario: TableBase
 {
     // nome do funcionario

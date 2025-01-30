@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Repara.Model;
 
-// TODO: Adicionar os dataanotations
+// TODO: Adicionar os dataanotations para definir o taamanho dos campos das tabelas
 // Casse representa um cliente no sistema, aquele que solicita por um serviço
+[Table("Clientes")]
 public class Cliente: TableBase
 {
 

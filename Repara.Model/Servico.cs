@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Repara.Model.Enum;
 
 namespace Repara.Model;

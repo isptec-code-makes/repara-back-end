@@ -1,9 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Repara.Model.Enum;
 
 namespace Repara.Model;
 
 // TODO: Adicionar os dataanotations
 // Solicitação de peças ao departamento responsável
+[Table("PecaPedidos")]
 public class PecaPedido: TableBase
 {
     
