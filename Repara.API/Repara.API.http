@@ -1,0 +1,6 @@
+@Repara.API_HostAddress = http://localhost:5291
+
+GET {{Repara.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

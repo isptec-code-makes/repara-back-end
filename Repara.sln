@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repara.API", "Repara.API\Repara.API.csproj", "{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repara.Model", "Repara.Model\Repara.Model.csproj", "{0F25B614-3FA2-4ED3-A3B0-FE323D69F83D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F25B614-3FA2-4ED3-A3B0-FE323D69F83D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F25B614-3FA2-4ED3-A3B0-FE323D69F83D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F25B614-3FA2-4ED3-A3B0-FE323D69F83D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F25B614-3FA2-4ED3-A3B0-FE323D69F83D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
