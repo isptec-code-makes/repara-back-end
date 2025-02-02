@@ -1,6 +1,6 @@
 namespace Repara.DTO.Solicitacao;
 
-public class SolicitacaoFilterParameters: FilterParameters
+public class SolicitacaoFilterParameters : FilterParameters
 {
-    
+
 }

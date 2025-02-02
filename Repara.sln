@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repara.API", "Repara.API\Repara.API.csproj", "{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repara.Model", "Repara.Model\Repara.Model.csproj", "{0F25B614-3FA2-4ED3-A3B0-FE323D69F83D}"
@@ -9,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repara.DTO", "Repara.DTO\Repara.DTO.csproj", "{5AA9208C-7F85-4C06-8DFE-CEC897B9F4FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repara.Helpers", "Repara.Helpers\Repara.Helpers.csproj", "{8B9D15DE-FFAF-4468-BDA8-F11684DC5217}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repara.Services", "Repara.Services\Repara.Services.csproj", "{8EB4DC95-EEB3-4CA3-A545-C1A298FD9A7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repara.Shared", "Repara.Shared\Repara.Shared.csproj", "{39F03E2C-5F44-45E3-B3FC-4354CFF34DF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +43,16 @@ Global
 		{8B9D15DE-FFAF-4468-BDA8-F11684DC5217}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B9D15DE-FFAF-4468-BDA8-F11684DC5217}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B9D15DE-FFAF-4468-BDA8-F11684DC5217}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EB4DC95-EEB3-4CA3-A545-C1A298FD9A7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EB4DC95-EEB3-4CA3-A545-C1A298FD9A7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EB4DC95-EEB3-4CA3-A545-C1A298FD9A7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EB4DC95-EEB3-4CA3-A545-C1A298FD9A7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39F03E2C-5F44-45E3-B3FC-4354CFF34DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39F03E2C-5F44-45E3-B3FC-4354CFF34DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39F03E2C-5F44-45E3-B3FC-4354CFF34DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39F03E2C-5F44-45E3-B3FC-4354CFF34DF1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

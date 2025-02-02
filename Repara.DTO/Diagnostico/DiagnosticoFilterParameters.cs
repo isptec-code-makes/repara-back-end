@@ -1,6 +1,6 @@
 namespace Repara.DTO.Diagnostico;
 
-public class DiagnosticoFilterParameters: FilterParameters
+public class DiagnosticoFilterParameters : FilterParameters
 {
-    
+
 }

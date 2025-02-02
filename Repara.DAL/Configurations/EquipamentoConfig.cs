@@ -4,7 +4,7 @@ using Repara.Model;
 
 namespace DAL.Configurations;
 
-public class EquipamentoConfig: IEntityTypeConfiguration<Equipamento>
+public class EquipamentoConfig : IEntityTypeConfiguration<Equipamento>
 {
     public void Configure(EntityTypeBuilder<Equipamento> builder)
     {

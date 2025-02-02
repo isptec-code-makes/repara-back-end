@@ -1,7 +1,7 @@
-using DAL;
 using Microsoft.EntityFrameworkCore;
+using Repara.DAL;
 
-namespace API.Extensions;
+namespace Repara.API.Extensions;
 
 /// <summary>
 /// Classe de extensão para gerenciar configurações de banco de dados e migrações no aplicativo.
@@ -19,32 +19,12 @@ public static class DatabaseManager
         services.AddDbContext<AppDbContext>(options =>
         {
             // Configura o uso do SQL Server com a string de conexão fornecida
-            options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
+            options.UseSqlServer(configuration.GetConnectionString("SqlServer"), x => x.MigrationsAssembly("Repara.DAL"));
 
             // Define o assembly para onde as migrações serão direcionadas
             //options.UseSqlServer(b => b.MigrationsAssembly("API"));
         });
-        
-        return services;
-    }
 
-    /// <summary>
-    /// Adiciona o gerenciador de banco de dados SQLite ao serviço da aplicação.
-    /// </summary>
-    /// <param name="services">Coleção de serviços da aplicação.</param>
-    /// <param name="configuration">Objeto de configuração contendo a string de conexão.</param>
-    /// <returns>Retorna a coleção de serviços atualizada.</returns>
-    public static IServiceCollection AddSqlLiteDatabaseManager(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddDbContext<AppDbContext>(options =>
-        {
-            // Configura o uso do SQLite com a string de conexão fornecida
-            options.UseSqlite(configuration.GetConnectionString("SqlLiteDb"));
-
-            // Define o assembly para onde as migrações serão direcionadas
-            //options.UseSqlite(b => b.MigrationsAssembly("API"));
-        });
-        
         return services;
     }
 

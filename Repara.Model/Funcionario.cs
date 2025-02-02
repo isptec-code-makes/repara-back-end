@@ -5,23 +5,28 @@ namespace Repara.Model;
 // Classe reprenseta um funcinario no sistema
 //  TODO: Adicionar os dataanotations
 [Table("Funcionarios")]
-public class Funcionario: TableBase
+public class Funcionario : TableBase
 {
+
+    public string UserId { get; set; }
+
+    public User User { get; set; }
+
     // nome do funcionario
     public string Nome { get; set; }
-    
+
     // endereço de emaio do funcionaro
     public string Email { get; set; }
-    
+
     // número de telefone do funcionario
     public string Telefone { get; set; }
-    
+
     // indica se o funcionario está disponivel para receber novos trabalhos
     public bool Disponibilidade { get; set; }
-    
+
     // horios de trabalho que o funcionario está disponível para trabalho
     public string? HorarioTrabalho { get; set; }
-    
+
     // Coleção de especioalidades do funcionario
     public string Especialidades { get; set; }
 

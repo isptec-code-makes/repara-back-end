@@ -1,6 +1,6 @@
 namespace Repara.DTO.PecaPedido;
 
-public class PecaPedidoFilterParameters: FilterParameters
+public class PecaPedidoFilterParameters : FilterParameters
 {
-    
+
 }

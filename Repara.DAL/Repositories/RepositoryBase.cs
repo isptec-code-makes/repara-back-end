@@ -1,11 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using DAL.Repositories.Contracts;
-using LinqKit;
-using Repara.DTO;
-using Repara.Helpers;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.Repositories;
+namespace Repara.DAL.Repositories;
 
 
 /// <summary>
@@ -14,7 +11,7 @@ namespace DAL.Repositories;
 /// </summary>
 /// <typeparam name="T">O tipo da entidade manipulada pelo repositório.</typeparam>
 /// /// <typeparam name="T2">Filtro para listas paginadas.</typeparam>
-public abstract class RepositoryBase<T> : IRepositoryBase<T> 
+public abstract class RepositoryBase<T> : IRepositoryBase<T>
     where T : class
 {
     /// <summary>
@@ -49,28 +46,28 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T>
             return _appDbContext.Set<T>().Where(expression).AsNoTracking();
         }
     }
-    
+
     public async Task<T?> GetByIdAsync(int id)
         => await _appDbContext.Set<T>().FindAsync(id);
 
     /// <inheritdoc/>
-    public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression) 
+    public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
         => await _appDbContext.Set<T>().AnyAsync(expression);
-    
+
     /// <inheritdoc/>
-    public void Add(T entity) 
+    public void Add(T entity)
         => _appDbContext.Set<T>().Add(entity);
 
     /// <inheritdoc/>
-    public void Update(T entity) 
+    public void Update(T entity)
         => _appDbContext.Set<T>().Update(entity);
 
     /// <inheritdoc/>
-    public void Remove(T entity) 
+    public void Remove(T entity)
         => _appDbContext.Remove(entity);
 
     /// <inheritdoc/>
-    public async Task SaveChangesAsync() 
+    public async Task SaveChangesAsync()
         => await _appDbContext.SaveChangesAsync();
-    
+
 }

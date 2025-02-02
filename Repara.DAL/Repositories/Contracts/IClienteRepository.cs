@@ -4,7 +4,7 @@ using Repara.Model;
 
 namespace DAL.Repositories.Contracts;
 
-public interface IClienteRepository: IRepositoryBase<Cliente>
+public interface IClienteRepository : IRepositoryBase<Cliente>
 {
     PagedList<Cliente> GetAllPaged(ClienteFilterParameters parameters);
 }

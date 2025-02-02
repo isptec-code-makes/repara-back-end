@@ -4,7 +4,7 @@ using Repara.Model;
 
 namespace DAL.Configurations;
 
-public class PecaConfig: IEntityTypeConfiguration<Peca>
+public class PecaConfig : IEntityTypeConfiguration<Peca>
 {
     public void Configure(EntityTypeBuilder<Peca> builder)
     {

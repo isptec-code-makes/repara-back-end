@@ -1,6 +1,6 @@
 namespace Repara.DTO.Equipamento;
 
-public class EquipamentoFilterParameters: FilterParameters
+public class EquipamentoFilterParameters : FilterParameters
 {
-    
+
 }

@@ -4,11 +4,16 @@ using Repara.Model;
 
 namespace DAL.Configurations;
 
-public class MontagemConfig: IEntityTypeConfiguration<Montagem>
+public class MontagemConfig : IEntityTypeConfiguration<Montagem>
 {
     public void Configure(EntityTypeBuilder<Montagem> builder)
     {
         builder
             .Property(c => c.Estado).HasColumnType("tinyint");
+
+        builder.HasOne(d => d.Funcionario)
+            .WithMany(f => f.Montagens)
+            .HasForeignKey(d => d.FuncionarioId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

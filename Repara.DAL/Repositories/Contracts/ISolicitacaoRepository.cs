@@ -4,7 +4,7 @@ using Repara.Model;
 
 namespace DAL.Repositories.Contracts;
 
-public interface ISolicitacaoRepository: IRepositoryBase<Solicitacao>
+public interface ISolicitacaoRepository : IRepositoryBase<Solicitacao>
 {
     PagedList<Solicitacao> GetAllPaged(SolicitacaoFilterParameters parameters);
 }

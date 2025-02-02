@@ -4,7 +4,7 @@ using Repara.Model;
 
 namespace DAL.Repositories.Contracts;
 
-public interface IEquipamentoRepository: IRepositoryBase<Equipamento>
+public interface IEquipamentoRepository : IRepositoryBase<Equipamento>
 {
     PagedList<Equipamento> GetAllPaged(EquipamentoFilterParameters parameters);
 }

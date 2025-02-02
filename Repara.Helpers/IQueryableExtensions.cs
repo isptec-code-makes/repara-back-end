@@ -5,7 +5,7 @@ namespace Repara.Helpers
 {
     public static class QueryableExtensions
     {
-        
+
         /// <summary>
         /// Ordena dinamicamente uma fonte IQueryable por uma propriedade especificada.
         /// </summary>

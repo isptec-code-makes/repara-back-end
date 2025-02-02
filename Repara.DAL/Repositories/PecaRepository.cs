@@ -6,26 +6,26 @@ using Repara.DTO.Peca;
 using Repara.Helpers;
 using Repara.Model;
 
-namespace DAL.Repositories;
+namespace Repara.DAL.Repositories;
 
-public class PecaRepository: RepositoryBase<Peca>, IPecaRepository
+public class PecaRepository : RepositoryBase<Peca>, IPecaRepository
 {
-    public PecaRepository(AppDbContext appDbContext) : base(appDbContext)  {}
+    public PecaRepository(AppDbContext appDbContext) : base(appDbContext) { }
 
     public PagedList<Peca> GetAllPaged(PecaFilterParameters parameters)
     {
         var queryable = FindByCondition(BuildWhereClause(parameters)).OrderByField(parameters.SortBy, parameters.IsDecsending);
-        return PagedList<Peca>.ToPagedList(queryable, parameters.PageNumber, parameters.PageSize); 
+        return PagedList<Peca>.ToPagedList(queryable, parameters.PageNumber, parameters.PageSize);
     }
-    
+
     private Expression<Func<Peca, bool>> BuildWhereClause(PecaFilterParameters filter)
     {
         var predicate = PredicateBuilder.New<Peca>(true);
 
-        
+
         if (filter.CreatedOn.HasValue)
             predicate = predicate.And(c => c.CreatedOn.Date == filter.CreatedOn.Value.ToDateTime(TimeOnly.MinValue).Date);
-        
+
         /*
         if (!string.IsNullOrWhiteSpace(filter.DataInicio) && !filter.CreationTime.HasValue && !filter.CreatedOn.HasValue)
         {
@@ -34,7 +34,7 @@ public class PecaRepository: RepositoryBase<Peca>, IPecaRepository
         }
         
         */
-        
+
 
         // Filtros do Search
         if (!string.IsNullOrWhiteSpace(filter.Search))

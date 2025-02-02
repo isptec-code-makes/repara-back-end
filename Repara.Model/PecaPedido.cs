@@ -6,22 +6,22 @@ namespace Repara.Model;
 // TODO: Adicionar os dataanotations
 // Solicitação de peças ao departamento responsável
 [Table("PecaPedidos")]
-public class PecaPedido: TableBase
+public class PecaPedido : TableBase
 {
-    
+
     private PecaPedidoEstado _estado;
 
     // preço do momento da solicitação da peça
     public decimal Preco { get; set; }
-    
+
     // Id da peça a ser solicitada
     public int PecaId { get; set; }
-    
+
     // Peça a ser solicitada
     public Peca Peca { get; set; }
 
     // Data em que o pedido foi processado
-    public DateTime? DateProcessed { get; set; } 
+    public DateTime? DateProcessed { get; set; }
 
     // Estado do pedido da peça
     public PecaPedidoEstado Estado
@@ -33,8 +33,8 @@ public class PecaPedido: TableBase
             if (value != _estado)
             {
                 DateProcessed = DateTime.Now;
-            }  
+            }
             _estado = value;
-        } 
+        }
     }
 }

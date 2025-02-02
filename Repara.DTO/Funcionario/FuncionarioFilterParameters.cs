@@ -1,6 +1,6 @@
 namespace Repara.DTO.Funcionario;
 
-public class FuncionarioFilterParameters: FilterParameters
+public class FuncionarioFilterParameters : FilterParameters
 {
-    
+
 }

@@ -1,6 +1,6 @@
 namespace Repara.DTO.Cliente;
 
-public class ClienteFilterParameters: FilterParameters
+public class ClienteFilterParameters : FilterParameters
 {
-    
+
 }

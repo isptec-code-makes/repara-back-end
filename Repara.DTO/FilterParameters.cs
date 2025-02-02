@@ -28,7 +28,7 @@ public abstract class FilterParameters
     /// Constante definida com valor de 100.
     /// </summary>
     private const int MaxPageSize = 100;
-    
+
     /// <summary>
     /// Define se será usando o MaxPageSize
     /// </summary>
@@ -69,19 +69,19 @@ public abstract class FilterParameters
             }
         }
     }
-    
+
     /// <summary>
     /// Propriedade que permite filtrar os dados com base em uma data específica de criação.
     /// Tipo: DateOnly.
     /// </summary>
     public DateOnly? CreatedOn { get; set; }
-    
+
     /// <summary>
     /// Inicio do intervalo da cobranca.
     /// Usado para filtrar cobranças por intervalo de tempo.
     /// </summary>
     public string? DataInicio { get; set; }
-    
+
     /// <summary>
     /// Fim do intervalo da cobranca
     /// Usado para filtrar cobranças por intervalo de tempo.

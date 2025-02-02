@@ -22,13 +22,15 @@ public interface IRepositoryBase<T>
     /// <returns>Um <see cref="IQueryable{T}"/> contendo os registros que atendem à condição.</returns>
     IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool tracking = false);
 
+    Task<T?> GetByIdAsync(int id);
+
     /// <summary>
     /// Verifica se existe pelo menos um registro que satisfaça uma condição específica.
     /// </summary>
     /// <param name="expression">Uma expressão lambda que define a condição.</param>
     /// <returns><c>true</c> se existir pelo menos um registro; caso contrário, <c>false</c>.</returns>
     Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
-    
+
     /// <summary>
     /// Adiciona uma nova entidade ao repositório.
     /// </summary>
@@ -53,5 +55,5 @@ public interface IRepositoryBase<T>
     /// <returns>Uma <see cref="Task"/> que representa a operação assíncrona.</returns>
     Task SaveChangesAsync();
 
-    
+
 }
