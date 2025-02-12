@@ -47,8 +47,17 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T>
         }
     }
 
-    public async Task<T?> GetByIdAsync(int id)
-        => await _appDbContext.Set<T>().FindAsync(id);
+    public async Task<T?> GetByIdAsync(int id, bool tracking = false)
+    {
+        if (tracking)
+        {
+            return await _appDbContext.Set<T>().FindAsync(id);
+        }
+        else
+        {
+            return await _appDbContext.Set<T>().FindAsync(id);
+        }
+    }
 
     /// <inheritdoc/>
     public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)

@@ -7,28 +7,27 @@ namespace Repara.Model;
 [Table("Funcionarios")]
 public class Funcionario : TableBase
 {
-
     public string UserId { get; set; }
 
     public User User { get; set; }
 
     // nome do funcionario
-    public string Nome { get; set; }
+    public string Nome { get; set; } = string.Empty;
 
     // endereço de emaio do funcionaro
-    public string Email { get; set; }
+    public string Email { get; set; } = string.Empty;
 
     // número de telefone do funcionario
-    public string Telefone { get; set; }
+    public string Telefone { get; set; } = string.Empty;
 
     // indica se o funcionario está disponivel para receber novos trabalhos
-    public bool Disponibilidade { get; set; }
+    public bool Ocupado { get; set; } = false;
 
     // horios de trabalho que o funcionario está disponível para trabalho
     public string? HorarioTrabalho { get; set; }
 
     // Coleção de especioalidades do funcionario
-    public string Especialidades { get; set; }
+    public string Especialidades { get; set; } = string.Empty;
 
     // Coleção de solicitações do funcionario
     public ICollection<Solicitacao> Solicitacoes { get; set; } = new List<Solicitacao>();

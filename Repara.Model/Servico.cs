@@ -7,30 +7,31 @@ namespace Repara.Model;
 public abstract class Servico : TableBase
 {
     // atributo para armazenar o estado do serviço
-    private ServicoEstado? _estado;
+    private ServicoEstado _estado = ServicoEstado.Pendente;
+
+    public string Especialidade { get; set; } = string.Empty;
 
     // Data de inicialização do serviçço
-    public DateTime? DateInit { get; set; } = DateTime.Now;
+    public DateTime? DateInit { get; set; } = null;
 
     // Data de finalização do serviço
-    public DateTime? DateEnd { get; set; }
+    public DateTime? DateEnd { get; set; } = null;
 
     // Relatorio do Serviço criado pelo funcionario
-    public string? Relatorio { get; set; }
+    public string? Relatorio { get; set; } = string.Empty;
 
     // Id do funcionario
-    public int FuncionarioId { get; set; }
+    public int? FuncionarioId { get; set; }
 
     // Funcionario Responsável pelo serviço
-    public Funcionario Funcionario { get; set; }
+    public Funcionario? Funcionario { get; set; }
 
     // TODO: Não mapear na BD
-    public ServicoEstado? Estado
+    public ServicoEstado Estado
     {
         get => _estado;
         set
         {
-
             // quando o estado é mudado para Terminado, seta a data de fim de serviço com a data e hora actual
             if (value is ServicoEstado.Terminado)
             {

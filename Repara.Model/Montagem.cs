@@ -7,8 +7,15 @@ namespace Repara.Model;
 [Table("Montagens")]
 public class Montagem : Servico
 {
-    // Coleção de peças a serem motada
-    public ICollection<PecaPedido> Pecas { get; set; } = new List<PecaPedido>();
+    // Peça a ser montada
+    public PecaPedido? PecaPedido { get; set; }
+
+    public int PecaPedidoId { get; set; }
+
+    public Peca Peca { get; set; }
+
+    public int PecaId { get; set; }
+
 
     // o id do equipamento que é montado
     public int EquipamentoId { get; set; }

@@ -39,6 +39,10 @@ namespace Repara.Services
             var user = await _userManager.FindByEmailAsync(request.Email!) ?? await _userManager.FindByNameAsync(request.Email) ?? await RegisterSocialUser(request);
 
             var token = await _jwtHandler.CreateToken(user);
+            
+
+            await _userManager.UpdateAsync(user);
+
 
             return new LoginResponseDto
             {

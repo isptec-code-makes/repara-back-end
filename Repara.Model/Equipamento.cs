@@ -18,9 +18,6 @@ public class Equipamento : TableBase
     // Diagnostico realizado sobre o equipamento
     public Diagnostico? Diagnostico { get; set; }
 
-    // Montagem de peças realizadas sobre o equipamento
-    public Montagem? Montagem { get; set; }
-
     // Id da solicitação
     public int SolicitacaoId { get; set; }
 
@@ -32,4 +29,7 @@ public class Equipamento : TableBase
 
     // Estagios que o equipamento passo. Exemplo: Inicio do diagnostico;Conclusão do diagnostico; Inicio da montagem; Finalização da montagem;
     public string Estagios { get; set; }
+
+    // Montagem de peças realizadas sobre o equipamento
+    public ICollection<Montagem> Montagem { get; set; } = [];
 }

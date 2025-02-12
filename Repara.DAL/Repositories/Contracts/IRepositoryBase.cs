@@ -22,7 +22,7 @@ public interface IRepositoryBase<T>
     /// <returns>Um <see cref="IQueryable{T}"/> contendo os registros que atendem à condição.</returns>
     IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool tracking = false);
 
-    Task<T?> GetByIdAsync(int id);
+    Task<T?> GetByIdAsync(int id, bool tracking = false);
 
     /// <summary>
     /// Verifica se existe pelo menos um registro que satisfaça uma condição específica.

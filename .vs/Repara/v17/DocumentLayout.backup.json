@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}|Repara.API\\Repara.API.csproj|c:\\users\\bernardo sacuendi\\documents\\isptec\\3\u00BA ano\\ef\\projectos\\repara\\repara.api\\extensions\\globalexceptionhandler .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}|Repara.API\\Repara.API.csproj|solutionrelative:repara.api\\extensions\\globalexceptionhandler .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8EB4DC95-EEB3-4CA3-A545-C1A298FD9A7E}|Repara.Services\\Repara.Services.csproj|c:\\users\\bernardo sacuendi\\documents\\isptec\\3\u00BA ano\\ef\\projectos\\repara\\repara.services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EB4DC95-EEB3-4CA3-A545-C1A298FD9A7E}|Repara.Services\\Repara.Services.csproj|solutionrelative:repara.services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}|Repara.API\\Repara.API.csproj|c:\\users\\bernardo sacuendi\\documents\\isptec\\3\u00BA ano\\ef\\projectos\\repara\\repara.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}|Repara.API\\Repara.API.csproj|solutionrelative:repara.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}|Repara.API\\Repara.API.csproj|c:\\users\\bernardo sacuendi\\documents\\isptec\\3\u00BA ano\\ef\\projectos\\repara\\repara.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}|Repara.API\\Repara.API.csproj|solutionrelative:repara.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}|Repara.API\\Repara.API.csproj|c:\\users\\bernardo sacuendi\\documents\\isptec\\3\u00BA ano\\ef\\projectos\\repara\\repara.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B79B8FE-C59E-4EE1-9762-5EC577E8A7ED}|Repara.API\\Repara.API.csproj|solutionrelative:repara.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,28 +35,51 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "GlobalExceptionHandler .cs",
-              "DocumentMoniker": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.API\\Extensions\\GlobalExceptionHandler .cs",
-              "RelativeDocumentMoniker": "Repara.API\\Extensions\\GlobalExceptionHandler .cs",
-              "ToolTip": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.API\\Extensions\\GlobalExceptionHandler .cs",
-              "RelativeToolTip": "Repara.API\\Extensions\\GlobalExceptionHandler .cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAYwB4AAABXAAAAAAAAAA==",
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Repara.Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.Services\\AuthService.cs",
+              "RelativeToolTip": "Repara.Services\\AuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T15:37:59.775Z",
+              "WhenOpened": "2025-02-03T13:27:15.811Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.API\\appsettings.json",
+              "RelativeDocumentMoniker": "Repara.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.API\\appsettings.json",
+              "RelativeToolTip": "Repara.API\\appsettings.json",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-02-03T13:22:01.333Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.API\\Program.cs",
               "RelativeDocumentMoniker": "Repara.API\\Program.cs",
               "ToolTip": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.API\\Program.cs",
               "RelativeToolTip": "Repara.API\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAADMAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T15:37:44.329Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-03T12:45:09.753Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Repara.API\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Repara.API\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAgwCgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-02T21:19:37.872Z"
             }
           ]
         }

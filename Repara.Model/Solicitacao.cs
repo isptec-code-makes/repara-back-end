@@ -25,21 +25,22 @@ public class Solicitacao : TableBase
     public Funcionario Funcionario { get; set; }
 
     // Estado actual da solicitação
-    public SolicitacaoEstado Estado { get; set; }
+    public SolicitacaoEstado Estado { get; set; } = SolicitacaoEstado.Recebido;
 
     // Descrição inicial do problema
     public string DescricaoProblema { get; set; }
 
     // Data que os equipamentos foram entregues ao cliente
-    public DateTime DataEntrega { get; set; }
+    public DateTime? DataEntrega { get; set; } = null;
 
     // Preço final a ser pago pelo cliente
-    public decimal Preco { get; set; }
+    public decimal? Preco { get; set; } = null;
+
+    // Estadios que o processo levou
+    public string Estagios { get; set; } = string.Empty;
 
     // Coleção de equipamentos a serem processados
     public List<Equipamento> Equipamentos { get; set; } = [];
 
-    // Estadios que o processo levou
-    public string Estagios { get; set; }
 
 }

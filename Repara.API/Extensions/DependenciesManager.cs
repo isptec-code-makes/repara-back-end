@@ -43,12 +43,12 @@ public static class DependenciesManager
             .AddRoleManager<RoleManager<IdentityRole>>()
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
-        
+
         services.Configure<JwtConfiguration>(
             configuration.GetSection(JwtConfiguration.Position));
-        
+
         services.AddAuthentication(options =>
-            { 
+            {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -66,12 +66,12 @@ public static class DependenciesManager
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"])),
                     ClockSkew = TimeSpan.Zero
                 };
-                
+
             });
 
-            services.AddScoped<JwtHandler>();
+        services.AddScoped<JwtHandler>();
 
-            services.Configure<SocialLoginConfiguration>(configuration.GetSection(SocialLoginConfiguration.Position));
+        services.Configure<SocialLoginConfiguration>(configuration.GetSection(SocialLoginConfiguration.Position));
 
 
         return services;
@@ -84,7 +84,7 @@ public static class DependenciesManager
     /// <returns>Retorna a coleção de serviços configurada.</returns>
     public static IServiceCollection AddDependenciesManager(this IServiceCollection services)
     {
-        // Registra os repositórios e serviços relacionados à aplicação.
+        // registro dos repositórios
         services.AddScoped<IClienteRepository, ClienteRepository>();
         services.AddScoped<IDiagnosticoRepository, DiagnosticoRepository>();
         services.AddScoped<IEquipamentoRepository, EquipamentoRepository>();
@@ -93,14 +93,27 @@ public static class DependenciesManager
         services.AddScoped<IPecaPedidoRepository, PecaPedidoRepository>();
         services.AddScoped<IPecaRepository, PecaRepository>();
         services.AddScoped<ISolicitacaoRepository, SolicitacaoRepository>();
+
+        // registro dos serviços
         services.AddScoped<IClienteService, ClienteService>();
+        services.AddScoped<IDiagnosticoService, DiagnosticoService>();
+        services.AddScoped<IEquipamentoService, EquipamentoService>();
+        services.AddScoped<IFuncionarioService, FuncionarioService>();
+        services.AddScoped<IMontagemService, MontagemService>();
+        services.AddScoped<IPecaPedidoService, PecaPedidoService>();
+        services.AddScoped<IPecaService, PecaService>();
+        services.AddScoped<ISolicitacaoService, SolicitacaoService>();
         services.AddScoped<IAuthService, AuthService>();
 
-        
-        
-
-
+        // registro dos mappers
         services.AddAutoMapper(typeof(ClienteProfile));
+        services.AddAutoMapper(typeof(SolicitacaoProfile));
+        services.AddAutoMapper(typeof(DiagnosticoProfile));
+        services.AddAutoMapper(typeof(EquipamentoProfile));
+        services.AddAutoMapper(typeof(FuncionarioProfile));
+        services.AddAutoMapper(typeof(MontagemProfile));
+        services.AddAutoMapper(typeof(PecaPedidoProfile));
+        services.AddAutoMapper(typeof(PecaProfile));
 
         return services;
     }

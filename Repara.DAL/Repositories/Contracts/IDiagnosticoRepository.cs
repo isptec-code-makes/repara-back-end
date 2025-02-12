@@ -7,4 +7,6 @@ namespace DAL.Repositories.Contracts;
 public interface IDiagnosticoRepository : IRepositoryBase<Diagnostico>
 {
     PagedList<Diagnostico> GetAllPaged(DiagnosticoFilterParameters parameters);
+
+    Task<Diagnostico?> GetDiagnosticoPorPrioridadeAsync();
 }

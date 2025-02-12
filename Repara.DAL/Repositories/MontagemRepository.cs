@@ -1,11 +1,12 @@
 using System.Linq.Expressions;
 using DAL.Repositories.Contracts;
 using LinqKit;
+using Microsoft.EntityFrameworkCore;
 using Repara.DTO;
 using Repara.DTO.Montagem;
 using Repara.Helpers;
 using Repara.Model;
-
+using Repara.Model.Enum;
 namespace Repara.DAL.Repositories;
 
 public class MontagemRepository : RepositoryBase<Montagem>, IMontagemRepository
@@ -19,6 +20,14 @@ public class MontagemRepository : RepositoryBase<Montagem>, IMontagemRepository
         var queryable = FindByCondition(BuildWhereClause(parameters))
             .OrderByField(parameters.SortBy, parameters.IsDecsending);
         return PagedList<Montagem>.ToPagedList(queryable, parameters.PageNumber, parameters.PageSize);
+    }
+
+    public async Task<Montagem?> GetDiagnosticoPorPrioridadeAsync()
+    {
+        return await FindByCondition(c => c.Estado == ServicoEstado.Pendente && c.FuncionarioId == null)
+            .OrderBy(c => c.Equipamento.Solicitacao.Prioridade)
+            .ThenBy(c => c.Equipamento.Solicitacao.CreatedOn)
+            .FirstOrDefaultAsync();
     }
 
     private Expression<Func<Montagem, bool>> BuildWhereClause(MontagemFilterParameters filter)

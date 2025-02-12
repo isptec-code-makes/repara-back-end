@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using DAL.Repositories.Contracts;
 using LinqKit;
+using Microsoft.EntityFrameworkCore;
 using Repara.DTO;
 using Repara.DTO.Funcionario;
 using Repara.Helpers;
@@ -19,6 +20,12 @@ public class FuncionarioRepository : RepositoryBase<Funcionario>, IFuncionarioRe
         var queryable = FindByCondition(BuildWhereClause(parameters))
             .OrderByField(parameters.SortBy, parameters.IsDecsending);
         return PagedList<Funcionario>.ToPagedList(queryable, parameters.PageNumber, parameters.PageSize);
+    }
+
+    public async Task<Funcionario?> GetFreeFuncionario(string especialidade)
+    {
+        return await FindByCondition(c => c.Especialidades.Contains(especialidade) && !c.Ocupado)
+            .FirstOrDefaultAsync();
     }
 
     private Expression<Func<Funcionario, bool>> BuildWhereClause(FuncionarioFilterParameters filter)

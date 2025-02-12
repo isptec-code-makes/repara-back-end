@@ -1,3 +1,4 @@
+using System.Data.Entity;
 using System.Linq.Expressions;
 using DAL.Repositories.Contracts;
 using LinqKit;
@@ -5,6 +6,7 @@ using Repara.DTO;
 using Repara.DTO.Diagnostico;
 using Repara.Helpers;
 using Repara.Model;
+using Repara.Model.Enum;
 
 namespace Repara.DAL.Repositories;
 
@@ -19,6 +21,14 @@ public class DiagnosticoRepository : RepositoryBase<Diagnostico>, IDiagnosticoRe
         var queryable = FindByCondition(BuildWhereClause(parameters))
             .OrderByField(parameters.SortBy, parameters.IsDecsending);
         return PagedList<Diagnostico>.ToPagedList(queryable, parameters.PageNumber, parameters.PageSize);
+    }
+
+    public async Task<Diagnostico?> GetDiagnosticoPorPrioridadeAsync()
+    {
+        return await FindByCondition(c => c.Estado == ServicoEstado.Pendente && c.FuncionarioId == null)
+            .OrderBy(c => c.Equipamento.Solicitacao.Prioridade)
+            .ThenBy(c => c.Equipamento.Solicitacao.CreatedOn)
+            .FirstOrDefaultAsync();
     }
 
     private Expression<Func<Diagnostico, bool>> BuildWhereClause(DiagnosticoFilterParameters filter)

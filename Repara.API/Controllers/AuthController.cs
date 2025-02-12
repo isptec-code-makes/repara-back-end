@@ -19,7 +19,6 @@ namespace Repara.API.Controllers;
         }
         
 
-        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
         {
@@ -32,7 +31,7 @@ namespace Repara.API.Controllers;
             return Ok(await _authService.LoginUserAsync(request));
         }
         
-        [AllowAnonymous]
+        
         [HttpPost("social-login")]
         public async Task<IActionResult> SocialLogin([FromBody] SocialLoginRequest request)
         {
@@ -44,14 +43,14 @@ namespace Repara.API.Controllers;
             return Ok(await _authService.LoginSocialUserAsync(request));
         }
 
-        [AllowAnonymous]
+        
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
         {
             return Ok(await _authService.RegisterAsync(request));
         }
         
-        [AllowAnonymous]
+        
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenDto request)
         {

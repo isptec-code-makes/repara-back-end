@@ -9,10 +9,10 @@ namespace Repara.Model;
 public class PecaPedido : TableBase
 {
 
-    private PecaPedidoEstado _estado;
+    private PecaPedidoEstado _estado = PecaPedidoEstado.Pendente;
 
     // preço do momento da solicitação da peça
-    public decimal Preco { get; set; }
+    public decimal? Preco { get; set; } = 0;
 
     // Id da peça a ser solicitada
     public int PecaId { get; set; }
@@ -20,8 +20,14 @@ public class PecaPedido : TableBase
     // Peça a ser solicitada
     public Peca Peca { get; set; }
 
+    // relaciona com a montagem
+    public Montagem Montagem { get; set; }
+
+    public int MontagemId { get; set; }
+
+
     // Data em que o pedido foi processado
-    public DateTime? DateProcessed { get; set; }
+    public DateTime? DateProcessed { get; set; } = null;
 
     // Estado do pedido da peça
     public PecaPedidoEstado Estado

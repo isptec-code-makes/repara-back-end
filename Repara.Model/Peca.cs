@@ -8,7 +8,6 @@ namespace Repara.Model;
 [Table("Pecas")]
 public class Peca : TableBase
 {
-
     // Nome da peça
     public string Designacao { get; set; }
 
@@ -26,4 +25,7 @@ public class Peca : TableBase
 
     // quando de peças existentes no estoque da empresa
     public int Estoque { get; set; }
+
+    // cria uma colection de PecaPedido
+    public ICollection<PecaPedido> PecaPedidos { get; set; } = [];
 }
