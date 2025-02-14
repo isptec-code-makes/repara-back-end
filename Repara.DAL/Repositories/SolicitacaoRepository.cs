@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using DAL.Repositories.Contracts;
 using LinqKit;
+using Microsoft.EntityFrameworkCore;
 using Repara.DTO;
 using Repara.DTO.Solicitacao;
 using Repara.Helpers;
@@ -17,6 +18,22 @@ public class SolicitacaoRepository : RepositoryBase<Solicitacao>, ISolicitacaoRe
         var queryable = FindByCondition(BuildWhereClause(parameters)).OrderByField(parameters.SortBy, parameters.IsDecsending);
         return PagedList<Solicitacao>.ToPagedList(queryable, parameters.PageNumber, parameters.PageSize);
     }
+
+    public async Task<Solicitacao?> GetByServico(Montagem servico)
+    {
+        return await FindByCondition(c => c.Equipamentos.Any(t => t.Id == servico.EquipamentoId)).FirstOrDefaultAsync();
+    }
+
+    public async Task<Solicitacao?> GetByServico(Diagnostico servico)
+    {
+        return await FindByCondition(c => c.Equipamentos.Any(t => t.Id == servico.EquipamentoId)).FirstOrDefaultAsync();
+    }
+
+    public async Task LoadEquipamentos(Solicitacao solicitacao)
+    {
+        solicitacao.Equipamentos = await FindByCondition(c => c.Id == solicitacao.Id).Include(c => c.Equipamentos).Select(c => c.Equipamentos).FirstOrDefaultAsync() ?? [];
+    }
+
 
     private Expression<Func<Solicitacao, bool>> BuildWhereClause(SolicitacaoFilterParameters filter)
     {

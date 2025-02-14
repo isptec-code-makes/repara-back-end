@@ -7,9 +7,9 @@ namespace Repara.Model;
 [Table("Funcionarios")]
 public class Funcionario : TableBase
 {
-    public string UserId { get; set; }
+    public string? UserId { get; set; }
 
-    public User User { get; set; }
+    public User? User { get; set; }
 
     // nome do funcionario
     public string Nome { get; set; } = string.Empty;
@@ -21,7 +21,7 @@ public class Funcionario : TableBase
     public string Telefone { get; set; } = string.Empty;
 
     // indica se o funcionario está disponivel para receber novos trabalhos
-    public bool Ocupado { get; set; } = false;
+    public bool Ocupado { get; set; }
 
     // horios de trabalho que o funcionario está disponível para trabalho
     public string? HorarioTrabalho { get; set; }

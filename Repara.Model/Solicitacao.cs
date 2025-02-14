@@ -25,7 +25,7 @@ public class Solicitacao : TableBase
     public Funcionario Funcionario { get; set; }
 
     // Estado actual da solicitação
-    public SolicitacaoEstado Estado { get; set; } = SolicitacaoEstado.Recebido;
+    public SolicitacaoEstado Estado { get; set; } = SolicitacaoEstado.Pendente;
 
     // Descrição inicial do problema
     public string DescricaoProblema { get; set; }

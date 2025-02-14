@@ -10,5 +10,10 @@ public class PecaPedidoConfig : IEntityTypeConfiguration<PecaPedido>
     {
         builder
             .Property(c => c.Estado).HasColumnType("tinyint");
+
+        builder.HasOne(d => d.Montagem)
+          .WithOne()
+          .HasForeignKey<PecaPedido>(d => d.MontagemId)
+          .OnDelete(DeleteBehavior.Restrict);
     }
 }

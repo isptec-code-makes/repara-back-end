@@ -31,5 +31,5 @@ public class Equipamento : TableBase
     public string Estagios { get; set; }
 
     // Montagem de peças realizadas sobre o equipamento
-    public ICollection<Montagem> Montagem { get; set; } = [];
+    public ICollection<Montagem> Montagens { get; set; } = [];
 }

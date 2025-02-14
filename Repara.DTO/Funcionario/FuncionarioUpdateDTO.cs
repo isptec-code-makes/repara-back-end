@@ -18,7 +18,7 @@ namespace Repara.DTO.Funcionario
         public string? Telefone { get; set; }
 
         // indica se o funcionario está disponivel para receber novos trabalhos
-        public bool? Disponibilidade { get; set; }
+        public bool Ocupado { get; set; } = false;
 
         // horios de trabalho que o funcionario está disponível para trabalho
         public string? HorarioTrabalho { get; set; }

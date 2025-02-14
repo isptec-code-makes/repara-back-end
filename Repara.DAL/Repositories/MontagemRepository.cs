@@ -30,6 +30,18 @@ public class MontagemRepository : RepositoryBase<Montagem>, IMontagemRepository
             .FirstOrDefaultAsync();
     }
 
+    public async Task<ICollection<Montagem>> GetAllBySolicitacaoAsync(Solicitacao solicitacao)
+    {
+        return await FindByCondition(c => c.Equipamento.Solicitacao.Id == solicitacao.Id).ToListAsync();
+    }
+
+    public async Task<(long, long)> GetMinMaxMontagemTimeAsync()
+    {
+        var min = await FindByCondition(c => c.DateEnd != null && c.DateInit != null && c.Estado == ServicoEstado.Terminado).MinAsync(c => (c.DateEnd!.Value - c.DateInit!.Value).Ticks);
+        var max = await FindByCondition(c => c.DateEnd != null && c.DateInit != null && c.Estado == ServicoEstado.Terminado).MaxAsync(c => (c.DateEnd!.Value - c.DateInit!.Value).Ticks);
+        return (min, max);
+    }
+
     private Expression<Func<Montagem, bool>> BuildWhereClause(MontagemFilterParameters filter)
     {
         var predicate = PredicateBuilder.New<Montagem>(true);

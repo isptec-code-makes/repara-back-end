@@ -9,4 +9,6 @@ public interface IDiagnosticoRepository : IRepositoryBase<Diagnostico>
     PagedList<Diagnostico> GetAllPaged(DiagnosticoFilterParameters parameters);
 
     Task<Diagnostico?> GetDiagnosticoPorPrioridadeAsync();
+
+    Task<(long, long)> GetMinMaxMontagemTimeAsync();
 }

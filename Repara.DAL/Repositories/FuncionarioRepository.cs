@@ -28,6 +28,21 @@ public class FuncionarioRepository : RepositoryBase<Funcionario>, IFuncionarioRe
             .FirstOrDefaultAsync();
     }
 
+    public async Task LoadMontagensAsync(Funcionario funcionario)
+    {
+        await _appDbContext.Set<Funcionario>().Entry(funcionario)
+             .Collection(c => c.Montagens)
+             .LoadAsync();
+    }
+
+    public async Task LoadDiagnosticosAsync(Funcionario funcionario)
+    {
+        await _appDbContext.Entry(funcionario)
+            .Collection(c => c.Diagnosticos)
+            .LoadAsync();
+    }
+
+
     private Expression<Func<Funcionario, bool>> BuildWhereClause(FuncionarioFilterParameters filter)
     {
         var predicate = PredicateBuilder.New<Funcionario>(true);

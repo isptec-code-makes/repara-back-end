@@ -13,11 +13,19 @@ namespace Repara.Services
     public class FuncionarioService : IFuncionarioService
     {
         private readonly IFuncionarioRepository _funcionarioRepository;
+        private readonly IDiagnosticoRepository _diagnosticoRepository;
+        private readonly IMontagemRepository _montagemRepository;
         private readonly IMapper _mapper;
 
-        public FuncionarioService(IFuncionarioRepository funcionarioRepository, IMapper mapper)
+        public FuncionarioService(
+            IFuncionarioRepository funcionarioRepository,
+            IDiagnosticoRepository diagnosticoRepository,
+            IMontagemRepository montagemRepository,
+            IMapper mapper)
         {
             _funcionarioRepository = funcionarioRepository;
+            _diagnosticoRepository = diagnosticoRepository;
+            _montagemRepository = montagemRepository;
             _mapper = mapper;
         }
 
@@ -25,7 +33,6 @@ namespace Repara.Services
         {
             var funcionarios = _funcionarioRepository.GetAllPaged(parameters);
             return _mapper.Map<PagedList<FuncionarioDTO>>(funcionarios);
-
         }
 
         public async Task<FuncionarioDTO?> GetByIdAsync(int id)
@@ -34,6 +41,47 @@ namespace Repara.Services
             if (funcionario is null) return null;
 
             return _mapper.Map<FuncionarioDTO>(funcionario);
+        }
+
+        public async Task<double> CalculaDesempenhoAsync(int id)
+        {
+            var funcionario = await _funcionarioRepository.GetByIdAsync(id);
+            if (funcionario is null)
+            {
+                throw new NotFoundException("Funcionario não encontrado");
+            }
+
+            List<Servico> servicos = new List<Servico>();
+
+            await _funcionarioRepository.LoadDiagnosticosAsync(funcionario);
+            await _funcionarioRepository.LoadMontagensAsync(funcionario);
+
+            servicos.AddRange(funcionario.Diagnosticos.Where(c => c.Estado == Model.Enum.ServicoEstado.Terminado && c.DateEnd.HasValue && c.DateInit.HasValue));
+            servicos.AddRange(funcionario.Montagens.Where(c => c.Estado == Model.Enum.ServicoEstado.Terminado && c.DateEnd.HasValue && c.DateInit.HasValue));
+
+            if (servicos.Count > 0)
+            {
+                var totalTicks = servicos.Sum(s => (s.DateEnd.Value - s.DateInit.Value).Ticks);
+                var tempo = totalTicks / servicos.Count;
+
+                var (montagemMin, montagemMax) = await _montagemRepository.GetMinMaxMontagemTimeAsync();
+                var (diagnosticoMin, diagnosticoMax) = await _diagnosticoRepository.GetMinMaxMontagemTimeAsync();
+
+                var min = Math.Min(montagemMin, diagnosticoMin);
+                var max = Math.Max(montagemMax, diagnosticoMax);
+
+                if ((max - min) == 0) return 0;
+
+
+                double desempenho = (max - tempo) / (max - min) * 100;
+
+                return desempenho;
+
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public async Task<FuncionarioDTO?> CreateAsync(FuncionarioCreateDTO request)
@@ -99,7 +147,5 @@ namespace Repara.Services
                 throw new InternalServerErrorException("Erro ao deletar funcionario", e);
             }
         }
-
-
     }
 }

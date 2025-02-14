@@ -8,9 +8,9 @@ namespace Repara.Model;
 public class Cliente : TableBase
 {
 
-    public string UserId { get; set; }
+    public string? UserId { get; set; }
 
-    public User User { get; set; }
+    public User? User { get; set; }
 
     // Nome completo do cliente
     public string Nome { get; set; }

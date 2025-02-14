@@ -31,6 +31,13 @@ public class DiagnosticoRepository : RepositoryBase<Diagnostico>, IDiagnosticoRe
             .FirstOrDefaultAsync();
     }
 
+    public async Task<(long, long)> GetMinMaxMontagemTimeAsync()
+    {
+        var min = await FindByCondition(c => c.DateEnd != null && c.DateInit != null && c.Estado == ServicoEstado.Terminado).MinAsync(c => (c.DateEnd!.Value - c.DateInit!.Value).Ticks);
+        var max = await FindByCondition(c => c.DateEnd != null && c.DateInit != null && c.Estado == ServicoEstado.Terminado).MaxAsync(c => (c.DateEnd!.Value - c.DateInit!.Value).Ticks);
+        return (min, max);
+    }
+
     private Expression<Func<Diagnostico, bool>> BuildWhereClause(DiagnosticoFilterParameters filter)
     {
         var predicate = PredicateBuilder.New<Diagnostico>(true);

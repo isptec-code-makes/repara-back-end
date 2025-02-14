@@ -20,18 +20,24 @@ namespace Repara.Services
         private readonly IPecaRepository _pecaRepository;
         private readonly IEquipamentoRepository _equipamentoRepository;
 
+        private readonly ISolicitacaoRepository _solicitacaoRepository;
+
+
         public DiagnosticoService(
             IDiagnosticoRepository diagnosticoRepository,
             IMapper mapper,
             IFuncionarioRepository funcionarioRepository,
             IPecaRepository pecaRepository,
-            IEquipamentoRepository equipamentoRepository)
+            IEquipamentoRepository equipamentoRepository,
+            ISolicitacaoRepository solicitacaoRepository
+            )
         {
             _diagnosticoRepository = diagnosticoRepository;
             _mapper = mapper;
             _funcionarioRepository = funcionarioRepository;
             _pecaRepository = pecaRepository;
             _equipamentoRepository = equipamentoRepository;
+            _solicitacaoRepository = solicitacaoRepository;
         }
 
         public PagedList<DiagnosticoDTO> GetAllPaged(DiagnosticoFilterParameters parameters)
@@ -118,6 +124,21 @@ namespace Repara.Services
             if (changed)
             {
                 diagnostico.UpdatedOn = DateTime.Now;
+
+                if (diagnostico.Estado != diagnosticoTmp.Estado)
+                {
+                    if (diagnostico.Estado is ServicoEstado.Cancelado or ServicoEstado.Terminado)
+                    {
+                        if (diagnostico.FuncionarioId is not null)
+                        {
+                            diagnostico.Funcionario = await _funcionarioRepository.GetByIdAsync(diagnostico.FuncionarioId ?? 0);
+                            if (diagnostico.Funcionario is not null)
+                            {
+                                diagnostico.Funcionario.Ocupado = false;
+                            }
+                        }
+                    }
+                }
             }
 
             _diagnosticoRepository.Update(diagnostico);
@@ -139,7 +160,14 @@ namespace Repara.Services
                     {
                         // dispara o trigger para atribuir um funcionario ao diagnostico
                         await AtribuiFuncionario(diagnostico.Especialidade);
+
                     }
+
+                }
+
+                if (diagnostico.Funcionario is not null)
+                {
+                    await ActualizaSolicitacao(diagnostico);
                 }
             }
 
@@ -181,6 +209,8 @@ namespace Repara.Services
 
             funcionario.Ocupado = true;
 
+            await ActualizaSolicitacao(diagnostico);
+
             _diagnosticoRepository.Update(diagnostico);
 
             try
@@ -194,6 +224,25 @@ namespace Repara.Services
             }
         }
 
+        private async Task ActualizaSolicitacao(Diagnostico diagnostico)
+        {
+            var solicitacao = await _solicitacaoRepository.GetByServico(diagnostico);
+            if (solicitacao is null) return;
 
+            if (solicitacao.Estado == SolicitacaoEstado.Pendente)
+            {
+                solicitacao.Estado = SolicitacaoEstado.Andamento;
+                solicitacao.UpdatedOn = DateTime.Now;
+            }
+
+            try
+            {
+                await _solicitacaoRepository.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new InternalServerErrorException("Erro ao atualizar solicitacao", e);
+            }
+        }
     }
 }

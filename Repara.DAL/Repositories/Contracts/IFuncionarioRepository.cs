@@ -9,4 +9,8 @@ public interface IFuncionarioRepository : IRepositoryBase<Funcionario>
     PagedList<Funcionario> GetAllPaged(FuncionarioFilterParameters parameters);
 
     Task<Funcionario?> GetFreeFuncionario(string especialidade);
+
+    Task LoadDiagnosticosAsync(Funcionario funcionario);
+
+    Task LoadMontagensAsync(Funcionario funcionario);
 }

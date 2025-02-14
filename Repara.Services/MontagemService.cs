@@ -18,19 +18,22 @@ namespace Repara.Services
         private readonly IFuncionarioRepository _funcionarioRepository;
         private readonly IPecaRepository _pecaRepository;
         private readonly IEquipamentoRepository _equipamentoRepository;
+        private readonly ISolicitacaoRepository _solicitacaoRepository;
 
         public MontagemService(
             IMontagemRepository montagemRepository,
             IMapper mapper,
             IFuncionarioRepository funcionarioRepository,
             IPecaRepository pecaRepository,
-            IEquipamentoRepository equipamentoRepository)
+            IEquipamentoRepository equipamentoRepository,
+            ISolicitacaoRepository solicitacaoRepository)
         {
             _montagemRepository = montagemRepository;
             _mapper = mapper;
             _funcionarioRepository = funcionarioRepository;
             _pecaRepository = pecaRepository;
             _equipamentoRepository = equipamentoRepository;
+            _solicitacaoRepository = solicitacaoRepository;
         }
 
         public PagedList<MontagemDTO> GetAllPaged(MontagemFilterParameters parameters)
@@ -49,7 +52,6 @@ namespace Repara.Services
 
         public async Task<MontagemDTO?> CreateAsync(MontagemCreateDTO request)
         {
-
             var peca = await _pecaRepository.GetByIdAsync(request.PecaId, tracking: true);
             if (peca is null)
             {
@@ -97,7 +99,6 @@ namespace Repara.Services
 
         public async Task<MontagemDTO?> UpdateAsync(int id, MontagemUpdateDTO request)
         {
-
             bool changed = false;
 
             var montagem = await _montagemRepository.GetByIdAsync(id);
@@ -132,13 +133,23 @@ namespace Repara.Services
 
             if (changed)
             {
+                montagem.UpdatedOn = DateTime.Now;
+
                 if (montagem.Estado != montagemTmp.Estado)
                 {
                     if (montagem.Estado is ServicoEstado.Cancelado or ServicoEstado.Terminado)
                     {
-                        // dispara o trigger para atribuir um funcionario ao montagem
-                        await AtribuiFuncionario(montagem.Especialidade);
+                        if (montagem.FuncionarioId is not null)
+                        {
+                            montagem.Funcionario = await _funcionarioRepository.GetByIdAsync(montagem.FuncionarioId ?? 0);
+                            if (montagem.Funcionario is not null)
+                            {
+                                montagem.Funcionario.Ocupado = false;
+                            }
+                        }
                     }
+
+                    await ActualizaSolicitacao(montagem);
                 }
             }
 
@@ -152,8 +163,6 @@ namespace Repara.Services
             {
                 throw new InternalServerErrorException("Erro ao atualizar montagem", e);
             }
-
-
 
             return _mapper.Map<MontagemDTO>(montagem);
         }
@@ -201,29 +210,39 @@ namespace Repara.Services
             catch (Exception e)
             {
                 throw new InternalServerErrorException("Erro ao atribuir funcionario ao diagnostico", e);
-
             }
         }
 
-        private async Task DesocuparFncionario(int funcionarioId)
+        private async Task ActualizaSolicitacao(Montagem montagem)
         {
-            var funcionario = await _funcionarioRepository.GetByIdAsync(funcionarioId);
-            if (funcionario is null) return;
+            var solicitacao = await _solicitacaoRepository.GetByServico(montagem);
+            if (solicitacao is null) return;
 
-            if (!funcionario.Ocupado) return;
 
-            funcionario.Ocupado = false;
+            if (solicitacao.Estado == SolicitacaoEstado.Andamento)
+            {
+                await _solicitacaoRepository.LoadEquipamentos(solicitacao);
+
+                var montagens = await _montagemRepository.GetAllBySolicitacaoAsync(solicitacao);
+
+                var pendentes = montagens.Where(c => c.Estado == ServicoEstado.Pendente).ToList();
+
+                if (pendentes.Count == 0)
+                {
+                    solicitacao.Estado = SolicitacaoEstado.Concluido;
+                }
+
+                solicitacao.UpdatedOn = DateTime.Now;
+            }
 
             try
             {
-                await _funcionarioRepository.SaveChangesAsync();
+                await _solicitacaoRepository.SaveChangesAsync();
             }
             catch (Exception e)
             {
-                throw new InternalServerErrorException("Erro ao desocupar funcionario", e);
+                throw new InternalServerErrorException("Erro ao atualizar solicitacao", e);
             }
-
         }
-
     }
 }

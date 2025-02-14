@@ -1,3 +1,4 @@
+using System.Data.Entity;
 using System.Linq.Expressions;
 using DAL.Repositories.Contracts;
 using LinqKit;
@@ -19,6 +20,11 @@ public class EquipamentoRepository : RepositoryBase<Equipamento>, IEquipamentoRe
         var queryable = FindByCondition(BuildWhereClause(parameters))
             .OrderByField(parameters.SortBy, parameters.IsDecsending);
         return PagedList<Equipamento>.ToPagedList(queryable, parameters.PageNumber, parameters.PageSize);
+    }
+
+    public async Task LoadMontagens(Equipamento equipamento)
+    {
+        equipamento.Montagens = (await FindByCondition(c => c.Id == equipamento.Id).Include(c => c.Montagens).Select(c => c.Montagens).FirstOrDefaultAsync()) ?? [];
     }
 
     private Expression<Func<Equipamento, bool>> BuildWhereClause(EquipamentoFilterParameters filter)

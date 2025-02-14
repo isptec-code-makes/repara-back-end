@@ -58,6 +58,7 @@ namespace Repara.Services
             }
 
             var solicitacao = _mapper.Map<Solicitacao>(request);
+
             solicitacao.Cliente = cliente;
             solicitacao.Funcionario = funcionario;
 
@@ -94,6 +95,11 @@ namespace Repara.Services
                 changed = true;
             }
 
+            if (changed)
+            {
+                solicitacao.UpdatedOn = DateTime.Now;
+            }
+
             _solicitacaoRepository.Update(solicitacao);
 
             try
@@ -109,7 +115,7 @@ namespace Repara.Services
             {
                 // fazer alguma coisa
             }
-            ;
+
 
             return _mapper.Map<SolicitacaoDTO>(solicitacao);
         }

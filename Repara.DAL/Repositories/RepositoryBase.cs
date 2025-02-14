@@ -17,7 +17,7 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T>
     /// <summary>
     /// Contexto do banco de dados usado para acessar e manipular os dados.
     /// </summary>
-    private readonly AppDbContext _appDbContext;
+    protected readonly AppDbContext _appDbContext;
 
     /// <summary>
     /// Inicializa uma nova instância de <see cref="RepositoryBase{T}"/> com o contexto de banco de dados fornecido.
