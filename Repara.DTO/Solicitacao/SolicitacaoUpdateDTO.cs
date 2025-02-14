@@ -16,5 +16,9 @@ namespace Repara.DTO.Solicitacao
         // Estado actual da solicitação
         public SolicitacaoEstado? Estado { get; set; }
 
+        // Descrição inicial do problema
+        public string? DescricaoProblema { get; set; }
+
+
     }
 }

@@ -25,7 +25,7 @@ namespace Repara.Services
         {
             var clientes = _clientRepository.GetAllPaged(parameters);
             return _mapper.Map<PagedList<ClienteDTO>>(clientes);
-            
+
         }
 
         public async Task<ClienteDTO?> GetByIdAsync(int id)
@@ -38,9 +38,9 @@ namespace Repara.Services
 
         public async Task<ClienteDTO?> CreateAsync(ClienteCreateDTO request)
         {
-            var exists = await _clientRepository.AnyAsync(c=> (c.Email != null && c.Email.Equals(request.Email)) || c.Telefone.Equals(request.Telefone));
+            // var exists = await _clientRepository.AnyAsync(c=> (c.Email != null && c.Email.Equals(request.Email)) || c.Telefone.Equals(request.Telefone));
 
-            if (exists) return null;
+            // if (exists) return null;
 
             var cliente = _mapper.Map<Cliente>(request);
 

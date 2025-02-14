@@ -46,7 +46,9 @@ public class ClienteRepository : RepositoryBase<Cliente>, IClienteRepository
             // Aplicamos Trim e ToLower uma vez
             var searchTerm = filter.Search.Trim().ToLower();
             var searchPredicate = PredicateBuilder.New<Cliente>(false);
-            searchPredicate = searchPredicate.Or(c => c.Nome.ToLower().Contains(searchTerm));
+            searchPredicate = searchPredicate.Or(c => c.Nome.ToLower().Trim().Contains(searchTerm));
+            searchPredicate = searchPredicate.Or(c => c.Email != null && c.Email.ToLower().Trim().Contains(searchTerm));
+            searchPredicate = searchPredicate.Or(c => c.Telefone != null && c.Telefone.ToLower().Trim().Contains(searchTerm));
             predicate = predicate.And(searchPredicate);
         }
 

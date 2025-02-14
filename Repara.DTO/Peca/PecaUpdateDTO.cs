@@ -21,6 +21,8 @@ namespace Repara.DTO.Peca
         // A marca do fabricante da peça
         public string? Marca { get; set; }
 
+        public int? Estoque { get; set; }
+
         // Categoria da peça
         public EquipamentoCategoria? Categoria { get; set; }
     }

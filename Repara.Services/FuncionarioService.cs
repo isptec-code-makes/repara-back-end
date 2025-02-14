@@ -86,9 +86,9 @@ namespace Repara.Services
 
         public async Task<FuncionarioDTO?> CreateAsync(FuncionarioCreateDTO request)
         {
-            var exists = await _funcionarioRepository.AnyAsync(c => (c.Email != null && c.Email.Equals(request.Email)) || c.Telefone.Equals(request.Telefone));
+            //var exists = await _funcionarioRepository.AnyAsync(c => (c.Email != null && c.Email.Equals(request.Email)) || c.Telefone.Equals(request.Telefone));
 
-            if (exists) return null;
+            //if (exists) return null;
 
             var funcionario = _mapper.Map<Funcionario>(request);
             funcionario.Especialidades = funcionario.Especialidades.ToLower();

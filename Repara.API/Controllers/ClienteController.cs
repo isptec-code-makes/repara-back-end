@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Repara.API.Controllers
 {
-    [Route("api/cliente")]
+    [Route("api/clientes")]
     [ApiController]
     public class ClienteController : ControllerBase
     {

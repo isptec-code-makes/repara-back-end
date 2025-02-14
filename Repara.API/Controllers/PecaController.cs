@@ -1,28 +1,27 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repara.Services.Contracts;
-using Repara.DTO.Solicitacao;
+using Repara.DTO.Peca;
 using Repara.Shared.Exceptions;
 using Newtonsoft.Json;
 
 namespace Repara.API.Controllers
 {
-    [Route("api/solicitacaos")]
+    [Route("api/pecas")]
     [ApiController]
-    public class SolicitacaoController : ControllerBase
+    public class PecaController : ControllerBase
     {
-        private readonly ISolicitacaoService _solicitacaoService;
+        private readonly IPecaService _pecaService;
+        private readonly ILogger<PecaController> _logger;
 
-        private readonly ILogger<SolicitacaoController> _logger;
-
-        public SolicitacaoController(ISolicitacaoService solicitacaoService, ILogger<SolicitacaoController> logger)
+        public PecaController(IPecaService pecaService, ILogger<PecaController> logger)
         {
-            _solicitacaoService = solicitacaoService;
+            _pecaService = pecaService;
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllSolicitacao([FromQuery] SolicitacaoFilterParameters filterParameters)
+        public async Task<IActionResult> GetAllPecas([FromQuery] PecaFilterParameters filterParameters)
         {
             try
             {
@@ -31,29 +30,29 @@ namespace Repara.API.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var solicitacaos = _solicitacaoService.GetAllPaged(filterParameters);
+                var pecas = _pecaService.GetAllPaged(filterParameters);
                 var metadata = new
                 {
-                    solicitacaos.TotalCount,
-                    solicitacaos.PageSize,
-                    solicitacaos.CurrentPage,
-                    solicitacaos.TotalPages,
-                    solicitacaos.HasNext,
-                    solicitacaos.HasPrevious
+                    pecas.TotalCount,
+                    pecas.PageSize,
+                    pecas.CurrentPage,
+                    pecas.TotalPages,
+                    pecas.HasNext,
+                    pecas.HasPrevious
                 };
 
                 Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metadata));
-                return Ok(solicitacaos);
+                return Ok(pecas);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao obter a lista de solicitacaos.");
+                _logger.LogError(ex, "Erro ao obter a lista de pecas.");
                 return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro interno no servidor.");
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSolicitacaoById(int id)
+        public async Task<IActionResult> GetPecaById(int id)
         {
             try
             {
@@ -62,22 +61,22 @@ namespace Repara.API.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var solicitacao = await _solicitacaoService.GetByIdAsync(id);
-                if (solicitacao == null)
+                var peca = await _pecaService.GetByIdAsync(id);
+                if (peca == null)
                 {
                     return NotFound();
                 }
-                return Ok(solicitacao);
+                return Ok(peca);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao obter o solicitacao com ID {SolicitacaoId}.", id);
+                _logger.LogError(ex, "Erro ao obter o peca com ID {PecaId}.", id);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro interno no servidor.");
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSolicitacao([FromBody] SolicitacaoCreateDTO solicitacaoCreateDto)
+        public async Task<IActionResult> CreatePeca([FromBody] PecaCreateDTO pecaCreateDto)
         {
             try
             {
@@ -86,28 +85,28 @@ namespace Repara.API.Controllers
                     return BadRequest(ModelState);
                 }
 
-                if (solicitacaoCreateDto == null)
+                if (pecaCreateDto == null)
                 {
                     return BadRequest();
                 }
 
-                var createdSolicitacao = await _solicitacaoService.CreateAsync(solicitacaoCreateDto);
-                if (createdSolicitacao == null)
+                var createdPeca = await _pecaService.CreateAsync(pecaCreateDto);
+                if (createdPeca == null)
                 {
-                    return BadRequest("Erro ao criar o solicitacao. Verifique os dados fornecidos e tente novamente.");
+                    return BadRequest("Erro ao criar o peca. Verifique os dados fornecidos e tente novamente.");
                 }
 
-                return CreatedAtAction(nameof(GetSolicitacaoById), new { id = createdSolicitacao.Id }, createdSolicitacao);
+                return CreatedAtAction(nameof(GetPecaById), new { id = createdPeca.Id }, createdPeca);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao criar um novo solicitacao.");
+                _logger.LogError(ex, "Erro ao criar um novo peca.");
                 return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro interno no servidor.");
             }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSolicitacao(int id, [FromBody] SolicitacaoUpdateDTO solicitacaoUpdateDto)
+        public async Task<IActionResult> UpdatePeca(int id, [FromBody] PecaUpdateDTO pecaUpdateDto)
         {
             try
             {
@@ -116,14 +115,14 @@ namespace Repara.API.Controllers
                     return BadRequest(ModelState);
                 }
 
-                if (solicitacaoUpdateDto == null)
+                if (pecaUpdateDto == null)
                 {
                     return BadRequest();
                 }
 
-                var updatedSolicitacao = await _solicitacaoService.UpdateAsync(id, solicitacaoUpdateDto);
+                var updatedPeca = await _pecaService.UpdateAsync(id, pecaUpdateDto);
 
-                if (updatedSolicitacao == null)
+                if (updatedPeca == null)
                 {
                     return NotFound();
                 }
@@ -132,28 +131,28 @@ namespace Repara.API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao atualizar a solicitacao com ID {SolicitacaoId}.", id);
+                _logger.LogError(ex, "Erro ao atualizar o peca com ID {PecaId}.", id);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro interno no servidor.");
             }
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSolicitacao(int id)
+        public async Task<IActionResult> DeletePeca(int id)
         {
             try
             {
-                var solicitacao = await _solicitacaoService.GetByIdAsync(id);
-                if (solicitacao == null)
+                var peca = await _pecaService.GetByIdAsync(id);
+                if (peca == null)
                 {
                     return NotFound();
                 }
 
-                await _solicitacaoService.DeleteAsync(id);
+                await _pecaService.DeleteAsync(id);
                 return NoContent();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao excluir o solicitacao com ID {SolicitacaoId}.", id);
+                _logger.LogError(ex, "Erro ao excluir o peca com ID {PecaId}.", id);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro interno no servidor.");
             }
         }

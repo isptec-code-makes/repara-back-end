@@ -51,7 +51,7 @@ namespace Repara.Services
                 throw new BadRequestException("Cliente não encontrado");
             }
 
-            var funcionario = await _funcionarioRepository.GetByIdAsync(request.ClienteId, true);
+            var funcionario = await _funcionarioRepository.GetByIdAsync(request.FuncionarioId, true);
             if (funcionario is null)
             {
                 throw new BadRequestException("funcionario não encontrado");
@@ -92,6 +92,12 @@ namespace Repara.Services
             if (request.Prioridade.HasValue && request.Prioridade.Value != solicitacao.Prioridade)
             {
                 solicitacao.Prioridade = request.Prioridade.Value;
+                changed = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.DescricaoProblema))
+            {
+                solicitacao.DescricaoProblema = request.DescricaoProblema;
                 changed = true;
             }
 
