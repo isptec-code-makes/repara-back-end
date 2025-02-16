@@ -10,5 +10,11 @@ public class EquipamentoConfig : IEntityTypeConfiguration<Equipamento>
     {
         builder
             .Property(c => c.Categoria).HasColumnType("tinyint");
+
+        builder
+            .HasOne(p => p.Solicitacao)
+            .WithMany(u => u.Equipamentos)
+            .HasForeignKey(p => p.SolicitacaoId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

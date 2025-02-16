@@ -51,14 +51,12 @@ public class MontagemRepository : RepositoryBase<Montagem>, IMontagemRepository
             predicate = predicate.And(
                 c => c.CreatedOn.Date == filter.CreatedOn.Value.ToDateTime(TimeOnly.MinValue).Date);
 
-        /*
-        if (!string.IsNullOrWhiteSpace(filter.DataInicio) && !filter.CreationTime.HasValue && !filter.CreatedOn.HasValue)
+
+        if (filter.EquipamentoId.HasValue)
         {
-            var date = DateHelper.StringToDateOnly(filter.DataInicio).ToDateTime(TimeOnly.MinValue).Date ;
-            predicate = predicate.And(c => c.CreatedOn.Date >= date);
+            predicate = predicate.And(c => c.EquipamentoId == filter.EquipamentoId);
         }
 
-        */
 
 
         // Filtros do Search

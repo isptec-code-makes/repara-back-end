@@ -10,8 +10,6 @@ public class Montagem : Servico
     // Peça a ser montada
     public PecaPedido? PecaPedido { get; set; }
 
-    public int PecaPedidoId { get; set; }
-
     public Peca Peca { get; set; }
 
     public int PecaId { get; set; }

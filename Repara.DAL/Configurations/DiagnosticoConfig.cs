@@ -11,11 +11,15 @@ public class DiagnosticoConfig : IEntityTypeConfiguration<Diagnostico>
         builder
            .Property(c => c.Estado).HasColumnType("tinyint");
 
-        builder.HasOne(d => d.Funcionario)
+        builder
+            .HasOne(d => d.Funcionario)
             .WithMany(f => f.Diagnosticos)
             .HasForeignKey(d => d.FuncionarioId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // Outras configurações...
+        builder
+            .HasOne(u => u.Equipamento)
+            .WithOne(p => p.Diagnostico)
+            .HasForeignKey<Diagnostico>(p => p.EquipamentoId);
     }
 }

@@ -7,4 +7,6 @@ namespace DAL.Repositories.Contracts;
 public interface IEquipamentoRepository : IRepositoryBase<Equipamento>
 {
     PagedList<Equipamento> GetAllPaged(EquipamentoFilterParameters parameters);
+
+    Task LoadDiagnostico(Equipamento equipamento);
 }

@@ -30,14 +30,16 @@ public class FuncionarioRepository : RepositoryBase<Funcionario>, IFuncionarioRe
 
     public async Task LoadMontagensAsync(Funcionario funcionario)
     {
-        await _appDbContext.Set<Funcionario>().Entry(funcionario)
+        await Entity()
+             .Entry(funcionario)
              .Collection(c => c.Montagens)
              .LoadAsync();
     }
 
     public async Task LoadDiagnosticosAsync(Funcionario funcionario)
     {
-        await _appDbContext.Entry(funcionario)
+        await Entity()
+            .Entry(funcionario)
             .Collection(c => c.Diagnosticos)
             .LoadAsync();
     }

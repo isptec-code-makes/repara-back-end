@@ -22,9 +22,24 @@ public class EquipamentoRepository : RepositoryBase<Equipamento>, IEquipamentoRe
         return PagedList<Equipamento>.ToPagedList(queryable, parameters.PageNumber, parameters.PageSize);
     }
 
+    // TODO: Implementar a forma correcta de carregar a montagem
     public async Task LoadMontagens(Equipamento equipamento)
     {
         equipamento.Montagens = (await FindByCondition(c => c.Id == equipamento.Id).Include(c => c.Montagens).Select(c => c.Montagens).FirstOrDefaultAsync()) ?? [];
+    }
+
+    public async Task LoadDiagnostico(Equipamento equipamento)
+    {
+        await Entity()
+            .Entry(equipamento)
+            .Reference(e => e.Diagnostico)
+            .LoadAsync();
+    }
+
+    // loadDiagnosticos
+    public async Task LoadDiagnosticos(Equipamento equipamento)
+    {
+        equipamento.Diagnostico = await FindByCondition(c => c.Id == equipamento.Id).Include(c => c.Diagnostico).Select(c => c.Diagnostico).FirstOrDefaultAsync();
     }
 
     private Expression<Func<Equipamento, bool>> BuildWhereClause(EquipamentoFilterParameters filter)
@@ -36,14 +51,10 @@ public class EquipamentoRepository : RepositoryBase<Equipamento>, IEquipamentoRe
             predicate = predicate.And(
                 c => c.CreatedOn.Date == filter.CreatedOn.Value.ToDateTime(TimeOnly.MinValue).Date);
 
-        /*
-        if (!string.IsNullOrWhiteSpace(filter.DataInicio) && !filter.CreationTime.HasValue && !filter.CreatedOn.HasValue)
+        if (filter.SolicitacaoId.HasValue)
         {
-            var date = DateHelper.StringToDateOnly(filter.DataInicio).ToDateTime(TimeOnly.MinValue).Date ;
-            predicate = predicate.And(c => c.CreatedOn.Date >= date);
+            predicate = predicate.And(c => c.SolicitacaoId == filter.SolicitacaoId);
         }
-
-        */
 
 
         // Filtros do Search

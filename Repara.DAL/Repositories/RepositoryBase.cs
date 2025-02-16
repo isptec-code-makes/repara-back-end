@@ -34,6 +34,11 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T>
         return _appDbContext.Set<T>();
     }
 
+    protected DbSet<T> Entity()
+    {
+        return _appDbContext.Set<T>();
+    }
+
     /// <inheritdoc/>
     public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool tracking = true)
     {

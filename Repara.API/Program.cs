@@ -24,7 +24,9 @@ builder.Services.AddProblemDetails();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     // Configura o uso do SQL Server com a string de conexão fornecida
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), x => x.MigrationsAssembly("Repara.DAL"));
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), x => x.MigrationsAssembly("Repara.DAL"));
+    options.UseSqlite(builder.Configuration.GetConnectionString("SQLite"), x => x.MigrationsAssembly("Repara.DAL"));
+
 });
 
 builder.Services.AddIdentityManager(builder.Configuration);
@@ -55,7 +57,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("CorsPolicy");
 
-app.UseExceptionHandler(_=> {});
+app.UseExceptionHandler(_ => { });
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

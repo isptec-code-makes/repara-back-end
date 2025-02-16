@@ -19,8 +19,8 @@ public static class DatabaseManager
         services.AddDbContext<AppDbContext>(options =>
         {
             // Configura o uso do SQL Server com a string de conexão fornecida
-            options.UseSqlServer(configuration.GetConnectionString("SqlServer"), x => x.MigrationsAssembly("Repara.DAL"));
-
+            //options.UseSqlServer(configuration.GetConnectionString("SqlServer"), x => x.MigrationsAssembly("Repara.DAL"));
+            options.UseSqlite(configuration.GetConnectionString("SQLite"), x => x.MigrationsAssembly("Repara.DAL"));
             // Define o assembly para onde as migrações serão direcionadas
             //options.UseSqlServer(b => b.MigrationsAssembly("API"));
         });

@@ -4,6 +4,7 @@ using Repara.Services.Contracts;
 using Repara.DTO.Solicitacao;
 using Repara.Shared.Exceptions;
 using Newtonsoft.Json;
+using Repara.DTO.Equipamento;
 
 namespace Repara.API.Controllers
 {
@@ -12,13 +13,15 @@ namespace Repara.API.Controllers
     public class SolicitacaoController : ControllerBase
     {
         private readonly ISolicitacaoService _solicitacaoService;
+        private readonly IEquipamentoService _equipamentoService;
 
         private readonly ILogger<SolicitacaoController> _logger;
 
-        public SolicitacaoController(ISolicitacaoService solicitacaoService, ILogger<SolicitacaoController> logger)
+        public SolicitacaoController(ISolicitacaoService solicitacaoService, ILogger<SolicitacaoController> logger, IEquipamentoService equipamentoService)
         {
             _solicitacaoService = solicitacaoService;
             _logger = logger;
+            _equipamentoService = equipamentoService;
         }
 
         [HttpGet]
@@ -72,6 +75,40 @@ namespace Repara.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao obter o solicitacao com ID {SolicitacaoId}.", id);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro interno no servidor.");
+            }
+        }
+
+        // retorna a lista de equipamentos de uma solictacao
+        [HttpGet("{id:int}/equimentos")]
+        public async Task<IActionResult> GetAllEquipamento(int id, [FromQuery] EquipamentoFilterParameters filterParameters)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                filterParameters.SolicitacaoId = id;
+
+                var solicitacaos = _equipamentoService.GetAllPaged(filterParameters);
+                var metadata = new
+                {
+                    solicitacaos.TotalCount,
+                    solicitacaos.PageSize,
+                    solicitacaos.CurrentPage,
+                    solicitacaos.TotalPages,
+                    solicitacaos.HasNext,
+                    solicitacaos.HasPrevious
+                };
+
+                Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metadata));
+                return Ok(solicitacaos);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao obter a lista de solicitacaos.");
                 return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro interno no servidor.");
             }
         }
@@ -157,5 +194,7 @@ namespace Repara.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro interno no servidor.");
             }
         }
+
+
     }
 }

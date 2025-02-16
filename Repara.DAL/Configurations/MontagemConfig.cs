@@ -15,5 +15,12 @@ public class MontagemConfig : IEntityTypeConfiguration<Montagem>
             .WithMany(f => f.Montagens)
             .HasForeignKey(d => d.FuncionarioId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .HasOne(p => p.Equipamento)
+            .WithMany(u => u.Montagens)
+            .HasForeignKey(p => p.EquipamentoId)
+            .OnDelete(DeleteBehavior.Restrict);
+
     }
 }

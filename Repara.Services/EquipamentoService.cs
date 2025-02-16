@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DAL.Repositories.Contracts;
 using Repara.DTO;
+using Repara.DTO.Diagnostico;
 using Repara.DTO.Equipamento;
 using Repara.Model;
 using Repara.Services.Contracts;
@@ -14,12 +15,14 @@ namespace Repara.Services
     {
         private readonly IEquipamentoRepository _equipamentoRepository;
         private readonly ISolicitacaoRepository _solicitacaoRepository;
+        private readonly IDiagnosticoRepository _diagnosticoRepository;
         private readonly IMapper _mapper;
 
-        public EquipamentoService(IEquipamentoRepository equipamentoRepository, ISolicitacaoRepository solicitacaoRepository, IMapper mapper)
+        public EquipamentoService(IEquipamentoRepository equipamentoRepository, ISolicitacaoRepository solicitacaoRepository, IDiagnosticoRepository diagnosticoRepository, IMapper mapper)
         {
             _equipamentoRepository = equipamentoRepository;
             _solicitacaoRepository = solicitacaoRepository;
+            _diagnosticoRepository = diagnosticoRepository;
             _mapper = mapper;
         }
 
@@ -36,6 +39,19 @@ namespace Repara.Services
 
             return _mapper.Map<EquipamentoDTO>(equipamento);
         }
+
+        public async Task<DiagnosticoDTO?> GetDiagnosticoAsync(int id)
+        {
+            var equipamento = await _equipamentoRepository.GetByIdAsync(id, tracking: false);
+            if (equipamento is null) return null;
+
+            await _equipamentoRepository.LoadDiagnostico(equipamento);
+
+            if (equipamento.Diagnostico is null) return null;
+
+            return _mapper.Map<DiagnosticoDTO>(equipamento.Diagnostico);
+        }
+
 
         public async Task<EquipamentoDTO?> CreateAsync(EquipamentoCreateDTO request)
         {
@@ -108,7 +124,6 @@ namespace Repara.Services
             {
                 // do something
             }
-            ;
 
             return _mapper.Map<EquipamentoDTO>(equipamento);
         }

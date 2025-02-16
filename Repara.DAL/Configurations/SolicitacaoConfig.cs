@@ -14,9 +14,16 @@ public class SolicitacaoConfig : IEntityTypeConfiguration<Solicitacao>
         builder
             .Property(c => c.Prioridade).HasColumnType("tinyint");
 
-        builder.HasOne(d => d.Funcionario)
+        builder
+            .HasOne(d => d.Funcionario)
             .WithMany(f => f.Solicitacoes)
             .HasForeignKey(d => d.FuncionarioId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .HasOne(p => p.Cliente)
+            .WithMany(u => u.Solicitacoes)
+            .HasForeignKey(p => p.ClienteId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
