@@ -52,6 +52,21 @@ namespace Repara.Services
             return _mapper.Map<DiagnosticoDTO>(equipamento.Diagnostico);
         }
 
+        public async Task GetEstatistica(int id)
+        {
+            var equipamento = await _equipamentoRepository.GetByIdAsync(id, tracking: false);
+            if (equipamento is null) return;
+
+            await _equipamentoRepository.LoadDiagnostico(equipamento);
+            await _equipamentoRepository.LoadMontagens(equipamento);
+
+
+
+
+            if (equipamento.Diagnostico is null) return;
+
+            // do something
+        }
 
         public async Task<EquipamentoDTO?> CreateAsync(EquipamentoCreateDTO request)
         {
@@ -62,6 +77,11 @@ namespace Repara.Services
             }
 
             var equipamento = _mapper.Map<Equipamento>(request);
+
+            equipamento.Diagnostico = new Diagnostico
+            {
+                Especialidade = "diagnostico",
+            };
 
             _equipamentoRepository.Add(equipamento);
 

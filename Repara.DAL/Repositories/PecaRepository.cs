@@ -41,9 +41,10 @@ public class PecaRepository : RepositoryBase<Peca>, IPecaRepository
         {
             var searchTerm = filter.Search.Trim().ToLower();
             var searchPredicate = PredicateBuilder.New<Peca>(false);
-            /*
-            searchPredicate = searchPredicate.Or(c => c.Nome.ToLower().Contains(searchTerm));
-            */
+
+            searchPredicate = searchPredicate.Or(c => c.Marca != null && c.Marca.ToLower().Contains(searchTerm));
+            searchPredicate = searchPredicate.Or(c => c.Modelo != null && c.Modelo.ToLower().Contains(searchTerm));
+
             predicate = predicate.And(searchPredicate);
         }
 

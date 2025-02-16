@@ -25,7 +25,10 @@ public class EquipamentoRepository : RepositoryBase<Equipamento>, IEquipamentoRe
     // TODO: Implementar a forma correcta de carregar a montagem
     public async Task LoadMontagens(Equipamento equipamento)
     {
-        equipamento.Montagens = (await FindByCondition(c => c.Id == equipamento.Id).Include(c => c.Montagens).Select(c => c.Montagens).FirstOrDefaultAsync()) ?? [];
+        await Entity()
+           .Entry(equipamento)
+           .Reference(e => e.Montagens)
+           .LoadAsync();
     }
 
     public async Task LoadDiagnostico(Equipamento equipamento)
@@ -34,12 +37,6 @@ public class EquipamentoRepository : RepositoryBase<Equipamento>, IEquipamentoRe
             .Entry(equipamento)
             .Reference(e => e.Diagnostico)
             .LoadAsync();
-    }
-
-    // loadDiagnosticos
-    public async Task LoadDiagnosticos(Equipamento equipamento)
-    {
-        equipamento.Diagnostico = await FindByCondition(c => c.Id == equipamento.Id).Include(c => c.Diagnostico).Select(c => c.Diagnostico).FirstOrDefaultAsync();
     }
 
     private Expression<Func<Equipamento, bool>> BuildWhereClause(EquipamentoFilterParameters filter)

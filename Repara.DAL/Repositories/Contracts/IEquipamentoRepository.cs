@@ -9,4 +9,6 @@ public interface IEquipamentoRepository : IRepositoryBase<Equipamento>
     PagedList<Equipamento> GetAllPaged(EquipamentoFilterParameters parameters);
 
     Task LoadDiagnostico(Equipamento equipamento);
+
+    Task LoadMontagens(Equipamento equipamento);
 }
