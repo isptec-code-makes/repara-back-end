@@ -15,7 +15,8 @@ public class SolicitacaoRepository : RepositoryBase<Solicitacao>, ISolicitacaoRe
 
     public PagedList<Solicitacao> GetAllPaged(SolicitacaoFilterParameters parameters)
     {
-        var queryable = FindByCondition(BuildWhereClause(parameters)).OrderByField(parameters.SortBy, parameters.IsDecsending);
+
+        var queryable = FindByCondition(BuildWhereClause(parameters)).OrderByDescending(c => c.Prioridade);
         return PagedList<Solicitacao>.ToPagedList(queryable, parameters.PageNumber, parameters.PageSize);
     }
 

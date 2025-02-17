@@ -17,13 +17,16 @@ namespace Repara.Services
         private readonly IEquipamentoRepository _equipamentoRepository;
         private readonly ISolicitacaoRepository _solicitacaoRepository;
         private readonly IDiagnosticoRepository _diagnosticoRepository;
+
+        private readonly IFuncionarioRepository _funcionarioRepository;
         private readonly IMapper _mapper;
 
-        public EquipamentoService(IEquipamentoRepository equipamentoRepository, ISolicitacaoRepository solicitacaoRepository, IDiagnosticoRepository diagnosticoRepository, IMapper mapper)
+        public EquipamentoService(IEquipamentoRepository equipamentoRepository, ISolicitacaoRepository solicitacaoRepository, IDiagnosticoRepository diagnosticoRepository, IMapper mapper, IFuncionarioRepository funcionarioRepository)
         {
             _equipamentoRepository = equipamentoRepository;
             _solicitacaoRepository = solicitacaoRepository;
             _diagnosticoRepository = diagnosticoRepository;
+            _funcionarioRepository = funcionarioRepository;
             _mapper = mapper;
         }
 
@@ -109,7 +112,9 @@ namespace Repara.Services
                 Especialidade = "diagnostico",
             };
 
+
             _equipamentoRepository.Add(equipamento);
+
 
             try
             {
@@ -119,6 +124,8 @@ namespace Repara.Services
             {
                 throw new InternalServerErrorException("Erro ao salvar equipamento", e);
             }
+
+            await AtribuiFuncionario();
 
             return _mapper.Map<EquipamentoDTO>(equipamento);
         }
@@ -191,6 +198,56 @@ namespace Repara.Services
             catch (Exception e)
             {
                 throw new InternalServerErrorException("Erro ao deletar equipamento", e);
+            }
+        }
+
+        // método responsável por atribuir um funcionario a um diagnostico baseado na prioridade
+        private async Task AtribuiFuncionario(string especialidade = "diagnostico")
+        {
+            var diagnostico = await _diagnosticoRepository.GetDiagnosticoPorPrioridadeAsync();
+            if (diagnostico is null) return;
+
+            var funcionario = await _funcionarioRepository.GetFreeFuncionario(especialidade);
+            if (funcionario is null) return;
+
+            diagnostico.Funcionario = funcionario;
+            diagnostico.UpdatedOn = DateTime.Now;
+
+            funcionario.Ocupado = true;
+
+            await ActualizaSolicitacao(diagnostico);
+
+            _diagnosticoRepository.Update(diagnostico);
+
+            try
+            {
+                await _diagnosticoRepository.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new InternalServerErrorException("Erro ao atribuir funcionario ao diagnostico", e);
+
+            }
+        }
+
+        private async Task ActualizaSolicitacao(Diagnostico diagnostico)
+        {
+            var solicitacao = await _solicitacaoRepository.GetByServico(diagnostico);
+            if (solicitacao is null) return;
+
+            if (solicitacao.Estado == SolicitacaoEstado.Pendente)
+            {
+                solicitacao.Estado = SolicitacaoEstado.Andamento;
+                solicitacao.UpdatedOn = DateTime.Now;
+            }
+
+            try
+            {
+                await _solicitacaoRepository.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new InternalServerErrorException("Erro ao atualizar solicitacao", e);
             }
         }
     }

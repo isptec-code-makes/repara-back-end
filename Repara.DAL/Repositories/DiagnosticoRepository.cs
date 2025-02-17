@@ -1,4 +1,3 @@
-using System.Data.Entity;
 using System.Linq.Expressions;
 using DAL.Repositories.Contracts;
 using LinqKit;
@@ -7,6 +6,7 @@ using Repara.DTO.Diagnostico;
 using Repara.Helpers;
 using Repara.Model;
 using Repara.Model.Enum;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repara.DAL.Repositories;
 
@@ -29,6 +29,14 @@ public class DiagnosticoRepository : RepositoryBase<Diagnostico>, IDiagnosticoRe
             .OrderBy(c => c.Equipamento.Solicitacao.Prioridade)
             .ThenBy(c => c.Equipamento.Solicitacao.CreatedOn)
             .FirstOrDefaultAsync();
+    }
+
+    public async Task LoadFuncionario(Diagnostico diagnostico)
+    {
+        await Entity()
+           .Entry(diagnostico)
+           .Reference(e => e.Funcionario)
+           .LoadAsync();
     }
 
     public async Task<(long, long)> GetMinMaxMontagemTimeAsync()

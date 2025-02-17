@@ -125,19 +125,13 @@ namespace Repara.Services
             {
                 diagnostico.UpdatedOn = DateTime.Now;
 
-                if (diagnostico.Estado != diagnosticoTmp.Estado)
+                if (diagnostico.Estado is ServicoEstado.Cancelado or ServicoEstado.Terminado)
                 {
-                    if (diagnostico.Estado is ServicoEstado.Cancelado or ServicoEstado.Terminado)
-                    {
-                        if (diagnostico.FuncionarioId is not null)
-                        {
-                            diagnostico.Funcionario = await _funcionarioRepository.GetByIdAsync(diagnostico.FuncionarioId ?? 0);
-                            if (diagnostico.Funcionario is not null)
-                            {
-                                diagnostico.Funcionario.Ocupado = false;
-                            }
-                        }
-                    }
+                    await _diagnosticoRepository.LoadFuncionario(diagnostico);
+
+                    if (diagnostico.Funcionario is not null)
+                        diagnostico.Funcionario.Ocupado = false;
+
                 }
             }
 

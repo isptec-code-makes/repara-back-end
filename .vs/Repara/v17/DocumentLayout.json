@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{8EB4DC95-EEB3-4CA3-A545-C1A298FD9A7E}|Repara.Services\\Repara.Services.csproj|c:\\users\\bernardo sacuendi\\documents\\isptec\\3\u00BA ano\\ef\\projectos\\repara\\repara.services\\diagnosticoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EB4DC95-EEB3-4CA3-A545-C1A298FD9A7E}|Repara.Services\\Repara.Services.csproj|solutionrelative:repara.services\\diagnosticoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8EB4DC95-EEB3-4CA3-A545-C1A298FD9A7E}|Repara.Services\\Repara.Services.csproj|c:\\users\\bernardo sacuendi\\documents\\isptec\\3\u00BA ano\\ef\\projectos\\repara\\repara.services\\equipamentoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8EB4DC95-EEB3-4CA3-A545-C1A298FD9A7E}|Repara.Services\\Repara.Services.csproj|solutionrelative:repara.services\\equipamentoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -23,12 +27,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "DiagnosticoService.cs",
+              "DocumentMoniker": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.Services\\DiagnosticoService.cs",
+              "RelativeDocumentMoniker": "Repara.Services\\DiagnosticoService.cs",
+              "ToolTip": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.Services\\DiagnosticoService.cs",
+              "RelativeToolTip": "Repara.Services\\DiagnosticoService.cs",
+              "ViewState": "AgIAAH8AAAAAAAAAAAAawI0AAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T08:28:42.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "EquipamentoService.cs",
               "DocumentMoniker": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.Services\\EquipamentoService.cs",
               "RelativeDocumentMoniker": "Repara.Services\\EquipamentoService.cs",
               "ToolTip": "C:\\Users\\Bernardo Sacuendi\\Documents\\ISPTEC\\3\u00BA ano\\EF\\projectos\\Repara\\Repara.Services\\EquipamentoService.cs",
               "RelativeToolTip": "Repara.Services\\EquipamentoService.cs",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAowG8AAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAMcAAAAAAAAAAAASwNcAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-16T21:12:45.294Z",
               "EditorCaption": ""

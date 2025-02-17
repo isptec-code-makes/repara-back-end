@@ -11,4 +11,6 @@ public interface IDiagnosticoRepository : IRepositoryBase<Diagnostico>
     Task<Diagnostico?> GetDiagnosticoPorPrioridadeAsync();
 
     Task<(long, long)> GetMinMaxMontagemTimeAsync();
+
+    Task LoadFuncionario(Diagnostico diagnostico);
 }
