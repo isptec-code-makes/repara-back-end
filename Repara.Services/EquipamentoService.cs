@@ -4,6 +4,7 @@ using Repara.DTO;
 using Repara.DTO.Diagnostico;
 using Repara.DTO.Equipamento;
 using Repara.Model;
+using Repara.Model.Enum;
 using Repara.Services.Contracts;
 using Repara.Shared.Exceptions;
 
@@ -52,20 +53,45 @@ namespace Repara.Services
             return _mapper.Map<DiagnosticoDTO>(equipamento.Diagnostico);
         }
 
-        public async Task GetEstatistica(int id)
+        public async Task<EquipamentoEstatisticaDTO?> GetEstatisticaAsync(int id)
         {
             var equipamento = await _equipamentoRepository.GetByIdAsync(id, tracking: false);
-            if (equipamento is null) return;
+            if (equipamento is null) return null;
 
             await _equipamentoRepository.LoadDiagnostico(equipamento);
             await _equipamentoRepository.LoadMontagens(equipamento);
 
+            var diagnostico = equipamento.Diagnostico;
+            var montagens = equipamento.Montagens;
+
+            EquipamentoEstatisticaDTO estatisticaDTO = new EquipamentoEstatisticaDTO
+            {
+                Estado = ServicoEstado.Pendente
+            };
+
+            if (diagnostico != null && diagnostico.Estado == ServicoEstado.Iniciado)
+            {
+                estatisticaDTO.Estado = ServicoEstado.Iniciado;
+            }
+
+            if (diagnostico != null && diagnostico.Estado == ServicoEstado.Cancelado)
+            {
+                estatisticaDTO.Estado = ServicoEstado.Cancelado;
+                return estatisticaDTO;
+            }
+
+            if (montagens != null && montagens.All(m => m.Estado == ServicoEstado.Terminado || m.Estado == ServicoEstado.Cancelado))
+            {
+                estatisticaDTO.Estado = ServicoEstado.Terminado;
+            }
+
+            if (montagens != null && montagens.All(m => m.Estado == ServicoEstado.Cancelado))
+            {
+                estatisticaDTO.Estado = ServicoEstado.Cancelado;
+            }
 
 
-
-            if (equipamento.Diagnostico is null) return;
-
-            // do something
+            return estatisticaDTO;
         }
 
         public async Task<EquipamentoDTO?> CreateAsync(EquipamentoCreateDTO request)

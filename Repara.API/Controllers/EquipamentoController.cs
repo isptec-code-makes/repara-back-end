@@ -84,6 +84,30 @@ namespace Repara.API.Controllers
             }
         }
 
+        [HttpGet("{id}/estatiscas")]
+        public async Task<IActionResult> GetEstatistica(int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var equipamento = await _equipamentoService.GetEstatisticaAsync(id);
+                if (equipamento == null)
+                {
+                    return NotFound();
+                }
+                return Ok(equipamento);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao obter o equipamento com ID {EquipamentoId}.", id);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro interno no servidor.");
+            }
+        }
+
         // Retorna a lista de montagems de um equipamento
         [HttpGet("{id:int}/montagens")]
         public async Task<IActionResult> GetAllMontagem(int id, [FromQuery] MontagemFilterParameters filterParameters)
@@ -120,7 +144,7 @@ namespace Repara.API.Controllers
 
         // Retorna a lista de diagnósticos de um equipamento
         [HttpGet("{id:int}/diagnostico")]
-        public async Task<IActionResult> GetAllDiagnostico(int id)
+        public async Task<IActionResult> GetDiagnostico(int id)
         {
             try
             {

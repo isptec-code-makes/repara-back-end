@@ -13,4 +13,6 @@ public interface IMontagemRepository : IRepositoryBase<Montagem>
     Task<ICollection<Montagem>> GetAllBySolicitacaoAsync(Solicitacao solicitacao);
 
     Task<(long, long)> GetMinMaxMontagemTimeAsync();
+
+    Task LoadPeca(Montagem montagem);
 }

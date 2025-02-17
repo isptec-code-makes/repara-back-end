@@ -27,7 +27,7 @@ public class EquipamentoRepository : RepositoryBase<Equipamento>, IEquipamentoRe
     {
         await Entity()
            .Entry(equipamento)
-           .Reference(e => e.Montagens)
+           .Collection(e => e.Montagens)
            .LoadAsync();
     }
 

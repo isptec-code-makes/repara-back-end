@@ -24,7 +24,7 @@ namespace Repara.DTO.Montagem
         public string? Relatorio { get; set; }
 
         // Id do funcionario
-        public int FuncionarioId { get; set; }
+        public int? FuncionarioId { get; set; }
 
         // TODO: Não mapear na BD
         public ServicoEstado? Estado { get; set; }

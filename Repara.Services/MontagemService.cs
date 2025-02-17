@@ -79,6 +79,10 @@ namespace Repara.Services
                     Montagem = montagem
                 };
             }
+            else
+            {
+                peca.Estoque--;
+            }
 
             _montagemRepository.Add(montagem);
 
@@ -148,6 +152,13 @@ namespace Repara.Services
                             }
                         }
                     }
+
+                    if (montagem.Estado == ServicoEstado.Terminado)
+                    {
+                        await _montagemRepository.LoadPeca(montagem);
+                        montagem.Peca.Estoque++;
+                    }
+
 
                     await ActualizaSolicitacao(montagem);
                 }

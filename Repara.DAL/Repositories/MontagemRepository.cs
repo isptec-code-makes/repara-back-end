@@ -30,6 +30,14 @@ public class MontagemRepository : RepositoryBase<Montagem>, IMontagemRepository
             .FirstOrDefaultAsync();
     }
 
+    public async Task LoadPeca(Montagem montagem)
+    {
+        await Entity()
+           .Entry(montagem)
+           .Reference(e => e.Peca)
+           .LoadAsync();
+    }
+
     public async Task<ICollection<Montagem>> GetAllBySolicitacaoAsync(Solicitacao solicitacao)
     {
         return await FindByCondition(c => c.Equipamento.Solicitacao.Id == solicitacao.Id).ToListAsync();

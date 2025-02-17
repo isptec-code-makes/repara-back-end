@@ -7,4 +7,6 @@ public interface IEquipamentoService : IServiceBase<EquipamentoDTO, EquipamentoF
 {
     Task<DiagnosticoDTO?> GetDiagnosticoAsync(int id);
 
+    Task<EquipamentoEstatisticaDTO?> GetEstatisticaAsync(int id);
+
 }
